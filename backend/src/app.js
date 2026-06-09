@@ -1,4 +1,4 @@
-﻿const cors = require("cors");
+const cors = require("cors");
 const express = require("express");
 const morgan = require("morgan");
 
@@ -17,6 +17,14 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 app.use(morgan("dev"));
+
+app.get("/", (req, res) => {
+  res.json({
+    success: true,
+    message: "Waygood Study Abroad API is running",
+    version: "1.0.0"
+  });
+});
 
 app.use("/api/health", healthRoutes);
 app.use("/api/auth", authRoutes);
