@@ -14,7 +14,15 @@ const notFound = require("./middleware/notFound");
 
 const app = express();
 
-app.use(cors());
+app.use(
+  cors({
+    origin: [
+      "http://localhost:5173",
+      "https://waygood-study-abroad-platform.netlify.app",
+    ],
+    credentials: true,
+  })
+);
 app.use(express.json());
 app.use(morgan("dev"));
 
