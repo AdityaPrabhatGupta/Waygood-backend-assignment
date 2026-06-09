@@ -33,7 +33,11 @@ const listApplications = asyncHandler(async (req, res) => {
 });
 
 const createApplication = asyncHandler(async (req, res) => {
-  const { studentId, programId, intake } = req.body;
+  let { studentId, programId, intake } = req.body;
+
+  if (!studentId && req.user && req.user.role === "student") {
+    studentId = req.user._id.toString();
+  }
 
   if (!studentId || !programId || !intake) {
     throw new HttpError(400, "Student, program and intake are required.");

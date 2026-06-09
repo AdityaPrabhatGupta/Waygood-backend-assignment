@@ -1,4 +1,4 @@
-﻿const Application = require("../models/Application");
+const Application = require("../models/Application");
 const Program = require("../models/Program");
 const Student = require("../models/Student");
 const cacheService = require("../services/cacheService");
@@ -18,7 +18,7 @@ const getOverview = asyncHandler(async (req, res) => {
 
   const [totalStudents, totalPrograms, totalApplications, statusBreakdown, topCountries] =
     await Promise.all([
-      Student.countDocuments(),
+      Student.countDocuments({ role: "student" }),
       Program.countDocuments(),
       Application.countDocuments(),
       Application.aggregate([

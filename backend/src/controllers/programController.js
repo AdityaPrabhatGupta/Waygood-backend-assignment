@@ -17,6 +17,8 @@ const listPrograms = asyncHandler(async (req, res) => {
     search,
     budget,
     maxTuition,
+    maxBudget,
+    ielts,
     scholarshipAvailable,
     sortBy = "relevance",
     page = 1,
@@ -41,9 +43,14 @@ const listPrograms = asyncHandler(async (req, res) => {
     filters.intakes = intake;
   }
 
-  const tuitionLimit = Number(budget || maxTuition);
+  const tuitionLimit = Number(budget || maxTuition || maxBudget);
   if (Number.isFinite(tuitionLimit) && tuitionLimit > 0) {
     filters.tuitionFeeUsd = { $lte: tuitionLimit };
+  }
+
+  const ieltsScore = Number(ielts);
+  if (Number.isFinite(ieltsScore) && ieltsScore > 0) {
+    filters.minimumIelts = { $lte: ieltsScore };
   }
 
   const scholarshipFlag = parseBoolean(scholarshipAvailable);

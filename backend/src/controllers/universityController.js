@@ -16,6 +16,7 @@ const listUniversities = asyncHandler(async (req, res) => {
     intake,
     budget,
     maxTuition,
+    maxBudget,
     partnerType,
     q,
     search,
@@ -64,7 +65,7 @@ const listUniversities = asyncHandler(async (req, res) => {
     programFilters.intakes = intake;
   }
 
-  const tuitionLimit = Number(budget || maxTuition);
+  const tuitionLimit = Number(budget || maxTuition || maxBudget);
   if (Number.isFinite(tuitionLimit) && tuitionLimit > 0) {
     programFilters.tuitionFeeUsd = { $lte: tuitionLimit };
   }
